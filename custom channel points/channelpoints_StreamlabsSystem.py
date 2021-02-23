@@ -14,9 +14,9 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.2.8"
+Version = "1.3.2"
 
-ReadMeFile = os.path.join(os.path.dirname(__file__), "ReadMe.txt")
+ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 
 settings = {}
 
@@ -52,10 +52,21 @@ def Bonk():
 def Upsidedown():
   Parent.Log("Upsidedown", "Starting")
   Parent.SetOBSSourceRender(settings["upside-scene"], True, settings["upside-cam"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["upside-sound"], True, settings["upside-cam"], CallbackLogger)
   time.sleep(15)
   Parent.SetOBSSourceRender(settings["upside-scene"], False, settings["upside-cam"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["upside-sound"], False, settings["upside-cam"], CallbackLogger)
   Parent.Log("Upsidedown", "Complete")
   return
+
+def Cunt():
+  Parent.Log("Cunt", "Starting")
+  Parent.SetOBSSourceRender(settings["cunt-graphic"], True, settings["cunt-cam"], CallbackLogger)
+  time.sleep(7)
+  Parent.SetOBSSourceRender(settings["cunt-graphic"], False, settings["cunt-cam"], CallbackLogger)
+  Parent.Log("Cunt", "Complete")
+  return
+  
 
 def Init():
   global settings
@@ -68,29 +79,37 @@ def Init():
   except Exception, e:
     Parent.Log("UI", str(e))
     settings = {
-      "bonk-id": "a37dd922-0075-4fd0-9527-79c2dc9384b8",
-      "bonk-square-scene": "bonk-square-scene",
-      "bonk-wide-scene": "Fullscreen Cam",
-      "bonk-sound": "bonk",
-      "bonk-image": "BONK",
-      "bonk-cam": "Bonk",
-      "upside-id": "eabd6c20-8a5b-4ba2-9063-e1dc9e0c5200",
-      "upside-scene": "Webcam Upside Down",
-      "upside-cam": "Webcam"
+      "bonk-id": "",
+      "bonk-square-scene": "",
+      "bonk-wide-scene": "",
+      "bonk-sound": "",
+      "bonk-image": "",
+      "bonk-cam": "",
+      "upside-id": "",
+      "upside-scene": "",
+      "upside-cam": "",
+      "upside-sound": "",
+      "cunt-id": "",
+      "cunt-graphic": "",
+      "cunt-cam": ""
     }
   return
 
 def Execute(data):
-  Parent.Log("Test", data.RawData)
   if settings["bonk-id"] in data.RawData:
-    Bonk()
     Parent.SendStreamMessage('Bonking Dan...')
+    Bonk()
     Parent.Log("Custom-Main", "Executed Bonk")
     return
   if settings["upside-id"] in data.RawData:
-    Upsidedown()
     Parent.SendStreamMessage('Dan be careful you\'re upside down!')
+    Upsidedown()
     Parent.Log("Custom-Main", "Executed Upsidedown")
+    return
+  if settings["cunt-id"] in data.RawData:
+    Parent.SendStreamMessage('Come on boys, don\'t be such a cunt!')
+    Cunt()
+    Parent.Log("Custom-Main", "Executed Cunt")
     return
   
   # Parent.Log("Yeetus", "done")

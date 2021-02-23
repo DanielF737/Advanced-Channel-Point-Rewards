@@ -7,5 +7,9 @@
   "bonk-cam": "Bonk",
   "upside-id": "eabd6c20-8a5b-4ba2-9063-e1dc9e0c5200",
   "upside-scene": "Webcam Upside Down",
-  "upside-cam": "Webcam"
+  "upside-cam": "Webcam",
+  "upside-sound": "flip soinds",
+  "cunt-id": "464aa29e-7444-4561-a92e-f9ed0f05d790",
+  "cunt-graphic": "cunt graphic",
+  "cunt-cam": "Webcam"
 };

@@ -80,5 +80,37 @@
     "label": "Name of the base webcam scene",
     "tooltip": "",
     "group": "Upside Down"
+	},
+	
+	"upside-sound" : {
+    "type": "textbox",
+    "value": "flip soinds",
+    "label": "Name of the flip sound media source",
+    "tooltip": "",
+    "group": "Upside Down"
+	},
+	
+	"cunt-id" : {
+    "type": "textbox",
+    "value": "",
+    "label": "ID Of the Cunt Channel Point Event",
+    "tooltip": "",
+    "group": "Cunt"
+	},
+
+	"cunt-graphic" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the cunt graphic media source.",
+    "tooltip": "",
+    "group": "Cunt"
+	},
+	
+	"cunt-cam" : {
+    "type": "textbox",
+    "value": "Webcam",
+    "label": "Name of the base webcam scene",
+    "tooltip": "",
+    "group": "Cunt"
 	}
 }

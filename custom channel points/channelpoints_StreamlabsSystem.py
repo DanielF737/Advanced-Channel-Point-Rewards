@@ -7,6 +7,8 @@ import json
 import random
 import time
 import codecs
+import threading
+from datetime import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
 
 
@@ -14,11 +16,12 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.3.2"
+Version = "1.4.1"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
-
 settings = {}
+
+threads = []
 
 def OpenReadMe():
   os.startfile(ReadMeFile)
@@ -96,20 +99,29 @@ def Init():
   return
 
 def Execute(data):
+  username=data.UserName
+  time = str(datetime.now())
+
   if settings["bonk-id"] in data.RawData:
     Parent.SendStreamMessage('Bonking Dan...')
-    Bonk()
-    Parent.Log("Custom-Main", "Executed Bonk")
+    t = threading.Thread(target=Bonk)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Bonk at " + time)
     return
   if settings["upside-id"] in data.RawData:
     Parent.SendStreamMessage('Dan be careful you\'re upside down!')
-    Upsidedown()
-    Parent.Log("Custom-Main", "Executed Upsidedown")
+    t = threading.Thread(target=Upsidedown)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Upsidedown at " + time)
     return
   if settings["cunt-id"] in data.RawData:
     Parent.SendStreamMessage('Come on boys, don\'t be such a cunt!')
-    Cunt()
-    Parent.Log("Custom-Main", "Executed Cunt")
+    t = threading.Thread(target=Cunt)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Cunt at " + time)
     return
   
   # Parent.Log("Yeetus", "done")

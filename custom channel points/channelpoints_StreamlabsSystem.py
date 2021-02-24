@@ -16,7 +16,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.4.1"
+Version = "1.4.2"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
@@ -35,7 +35,7 @@ def CallbackLogger(response):
   return
 
 def Bonk():
-  Parent.Log("Bonk", "Starting")
+  # Parent.Log("Bonk", "Starting")
   Parent.SetOBSSourceRender(settings["bonk-sound"], True, settings["bonk-square-scene"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["bonk-image"], True, settings["bonk-square-scene"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["bonk-cam"], True, settings["bonk-square-scene"], CallbackLogger)
@@ -49,25 +49,25 @@ def Bonk():
   Parent.SetOBSSourceRender(settings["bonk-sound"], False, settings["bonk-wide-scene"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["bonk-image"], False, settings["bonk-wide-scene"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["bonk-cam"], False, settings["bonk-wide-scene"], CallbackLogger)
-  Parent.Log("Bonk", "Complete")
+  # Parent.Log("Bonk", "Complete")
   return
   
 def Upsidedown():
-  Parent.Log("Upsidedown", "Starting")
+  # Parent.Log("Upsidedown", "Starting")
   Parent.SetOBSSourceRender(settings["upside-scene"], True, settings["upside-cam"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["upside-sound"], True, settings["upside-cam"], CallbackLogger)
   time.sleep(15)
   Parent.SetOBSSourceRender(settings["upside-scene"], False, settings["upside-cam"], CallbackLogger)
   Parent.SetOBSSourceRender(settings["upside-sound"], False, settings["upside-cam"], CallbackLogger)
-  Parent.Log("Upsidedown", "Complete")
+  # Parent.Log("Upsidedown", "Complete")
   return
 
 def Cunt():
-  Parent.Log("Cunt", "Starting")
+  # Parent.Log("Cunt", "Starting")
   Parent.SetOBSSourceRender(settings["cunt-graphic"], True, settings["cunt-cam"], CallbackLogger)
   time.sleep(7)
   Parent.SetOBSSourceRender(settings["cunt-graphic"], False, settings["cunt-cam"], CallbackLogger)
-  Parent.Log("Cunt", "Complete")
+  # Parent.Log("Cunt", "Complete")
   return
   
 
@@ -124,7 +124,6 @@ def Execute(data):
     Parent.Log("Custom-Main", username + " Executed Cunt at " + time)
     return
   
-  # Parent.Log("Yeetus", "done")
   return
 
 def Tick():

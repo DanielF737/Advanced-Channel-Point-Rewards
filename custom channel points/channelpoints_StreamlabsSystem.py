@@ -16,7 +16,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.5.1"
+Version = "1.5.2"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
@@ -72,8 +72,16 @@ def Cunt():
 
 def SnyderCut():
   # Parent.Log("Snyder", "Starting")
+  # Because this one changes scenes, we need some safety to ensure the viewers cant move us off a start or BRB scene
+  # We do this in two ways, disable the command in the first 5 minutes of the stream
+  # TODO
+
+  # Allow a cooldown to be set via another command
+  if Parent.IsOnCooldown("Custom", "snyder"):
+    return
+
   Parent.SetOBSCurrentScene(settings["snyder-text"], CallbackLogger)
-  time.sleep(5)
+  time.sleep(4.9)
   Parent.SetOBSCurrentScene(settings["snyder-no-text"], CallbackLogger)
   time.sleep(25)
   Parent.SetOBSCurrentScene(settings["snyder-raw-gameplay"], CallbackLogger)
@@ -144,6 +152,15 @@ def Execute(data):
     t.start()
     Parent.Log("Custom-Main", username + " Executed Snyder Cut at " + time)
     return
+  if "!snyderCooldown" in data.RawData:
+    cool = data.Message.split(" ")[1]
+    if not cool.isDigit():
+      return
+    cool = int(cool)
+    Parent.AddCooldown("Custom", "snyder", cool)
+    Parent.Log("Custom-Main", username + " put snyder cut on cooldown for "+ cool + " minutes at " + time)
+    return
+
   
   return
 

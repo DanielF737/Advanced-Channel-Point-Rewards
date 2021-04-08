@@ -1,1 +1,1 @@
-Ill put shit here in a bit
+Just fill the settings in and itll work i promise

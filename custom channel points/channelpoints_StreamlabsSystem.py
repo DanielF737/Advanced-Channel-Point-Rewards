@@ -16,7 +16,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.4.2"
+Version = "1.4.3"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
@@ -28,7 +28,7 @@ def OpenReadMe():
   return
 
 def CallbackLogger(response):
-  """ Logs callback error response in scripts logger. """
+  # Logs callback error response in scripts logger.
   parsedresponse = json.loads(response)
   if parsedresponse["status"] == "error":
     Parent.Log("OBS Remote", parsedresponse["error"])

@@ -112,5 +112,37 @@
     "label": "Name of the base webcam scene",
     "tooltip": "",
     "group": "Cunt"
+	},
+	
+	"snyder-id" : {
+    "type": "textbox",
+    "value": "",
+    "label": "ID Of the Snyder Cut Channel Point Event",
+    "tooltip": "",
+    "group": "Snyder Cut"
+	},
+
+	"snyder-text" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the snyder cut scene with flavor text.",
+    "tooltip": "",
+    "group": "Snyder Cut"
+	},
+	
+	"snyder-no-text" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the snyder cut scene without flavor text",
+    "tooltip": "",
+    "group": "Snyder Cut"
+	},
+
+	"snyder-raw-gameplay" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the base gameplay scene.",
+    "tooltip": "",
+    "group": "Snyder Cut"
 	}
 }

@@ -16,7 +16,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.4.3"
+Version = "1.5.1"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
@@ -69,7 +69,17 @@ def Cunt():
   Parent.SetOBSSourceRender(settings["cunt-graphic"], False, settings["cunt-cam"], CallbackLogger)
   # Parent.Log("Cunt", "Complete")
   return
-  
+
+def SnyderCut():
+  # Parent.Log("Snyder", "Starting")
+  Parent.SetOBSCurrentScene(settings["snyder-text"], CallbackLogger)
+  time.sleep(5)
+  Parent.SetOBSCurrentScene(settings["snyder-no-text"], CallbackLogger)
+  time.sleep(25)
+  Parent.SetOBSCurrentScene(settings["snyder-raw-gameplay"], CallbackLogger)
+  # Parent.Log("Snyder", "Complete")
+  return
+
 
 def Init():
   global settings
@@ -94,7 +104,11 @@ def Init():
       "upside-sound": "",
       "cunt-id": "",
       "cunt-graphic": "",
-      "cunt-cam": ""
+      "cunt-cam": "",
+      "snyder-id": "",
+      "snyder-text": "",
+      "snyder-no-text": "",
+      "snyder-raw-gameplay": "",
     }
   return
 
@@ -122,6 +136,13 @@ def Execute(data):
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Cunt at " + time)
+    return
+  if settings["snyder-id"] in data.RawData:
+    Parent.SendStreamMessage('Reducing aspect ratio to appease Zac\'s vision...')
+    t = threading.Thread(target=SnyderCut)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Snyder Cut at " + time)
     return
   
   return

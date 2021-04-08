@@ -11,5 +11,9 @@
   "upside-sound": "flip soinds",
   "cunt-id": "464aa29e-7444-4561-a92e-f9ed0f05d790",
   "cunt-graphic": "cunt graphic",
-  "cunt-cam": "Webcam"
+  "cunt-cam": "Webcam",
+  "snyder-id": "2244a13a-b109-469d-9fa2-9d4da3c82571",
+  "snyder-text": "Snyder Cut",
+  "snyder-no-text": "Snyder Not Text",
+  "snyder-raw-gameplay": "Game Capture"
 };

@@ -16,7 +16,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.5.2"
+Version = "1.5.4"
 
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
@@ -77,6 +77,7 @@ def SnyderCut():
   # TODO
 
   # Allow a cooldown to be set via another command
+  # Parent.Log("Snyder", str(Parent.IsOnCooldown("Custom", "snyder")))
   if Parent.IsOnCooldown("Custom", "snyder"):
     return
 
@@ -154,11 +155,12 @@ def Execute(data):
     return
   if "!snyderCooldown" in data.RawData:
     cool = data.Message.split(" ")[1]
-    if not cool.isDigit():
+    if not cool.isdigit():
       return
     cool = int(cool)
     Parent.AddCooldown("Custom", "snyder", cool)
-    Parent.Log("Custom-Main", username + " put snyder cut on cooldown for "+ cool + " minutes at " + time)
+    Parent.SendStreamMessage('Snyder Cut channel point reward on cooldown...')
+    Parent.Log("Custom-Main", username + " put snyder cut on cooldown for "+ str(cool) + " seconds at " + time)
     return
 
   

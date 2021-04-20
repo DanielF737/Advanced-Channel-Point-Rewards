@@ -1,4 +1,4 @@
-﻿{	
+{	
 	"output_file": "settings.json",
 	
 	"button_readme": {
@@ -10,10 +10,10 @@
 		"group": ""
 	},
 	
-	"bonk-id" : {
+	"bonk-name" : {
     "type": "textbox",
     "value": "a37dd922-0075-4fd0-9527-79c2dc9384b8",
-    "label": "ID Of the Bonk Channel Point Event",
+    "label": "Name of the Bonk Channel Point Event",
     "tooltip": "",
     "group": "Bonk"
 	},
@@ -58,10 +58,10 @@
     "group": "Bonk"
 	},
 	
-	"upside-id" : {
+	"upside-name" : {
     "type": "textbox",
     "value": "eabd6c20-8a5b-4ba2-9063-e1dc9e0c5200",
-    "label": "ID Of the Upsidedown Channel Point Event",
+    "label": "Name of the Upsidedown Channel Point Event",
     "tooltip": "",
     "group": "Upside Down"
 	},
@@ -90,10 +90,10 @@
     "group": "Upside Down"
 	},
 	
-	"cunt-id" : {
+	"cunt-name" : {
     "type": "textbox",
     "value": "",
-    "label": "ID Of the Cunt Channel Point Event",
+    "label": "Name of the Cunt Channel Point Event",
     "tooltip": "",
     "group": "Cunt"
 	},
@@ -114,10 +114,10 @@
     "group": "Cunt"
 	},
 	
-	"snyder-id" : {
+	"snyder-name" : {
     "type": "textbox",
     "value": "",
-    "label": "ID Of the Snyder Cut Channel Point Event",
+    "label": "Name of the Snyder Cut Channel Point Event",
     "tooltip": "",
     "group": "Snyder Cut"
 	},

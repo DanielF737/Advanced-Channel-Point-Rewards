@@ -1,1 +1,0 @@
-Just fill the settings in and itll work i promise

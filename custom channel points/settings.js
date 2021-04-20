@@ -15,5 +15,9 @@
   "snyder-id": "2244a13a-b109-469d-9fa2-9d4da3c82571",
   "snyder-text": "Snyder Cut",
   "snyder-no-text": "Snyder Not Text",
-  "snyder-raw-gameplay": "Game Capture"
+  "snyder-raw-gameplay": "Game Capture",
+  "bonk-name": "BONK",
+  "upside-name": "Upside Down",
+  "cunt-name": "C*nt",
+  "snyder-name": "Snyder Cut Mode"
 };

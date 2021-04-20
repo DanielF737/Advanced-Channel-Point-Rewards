@@ -1,26 +1,41 @@
-#---------------------------
-#   Import Libraries
-#---------------------------
 import os
 import sys
+import clr
 import json
 import random
 import time
 import codecs
+import System
 import threading
 from datetime import datetime
-sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
 
+# Include the assembly with the name AnkhBotR2
+clr.AddReference([asbly for asbly in System.AppDomain.CurrentDomain.GetAssemblies() if "AnkhBotR2" in str(asbly)][0])
+import AnkhBotR2
+
+# Twitch PubSub library and dependencies
+lib_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "Lib")
+clr.AddReferenceToFileAndPath(os.path.join(lib_path, "Microsoft.Extensions.Logging.Abstractions.dll"))
+clr.AddReferenceToFileAndPath(os.path.join(lib_path, "TwitchLib.Communication.dll"))
+clr.AddReferenceToFileAndPath(os.path.join(lib_path, "TwitchLib.PubSub.dll"))
+from TwitchLib.PubSub import *
+from TwitchLib.PubSub.Events import *
+
+# Instead of Parent.GetRequest which was giving me issues
+clr.AddReference("System.Net.Http")
+from System.Net.Http import HttpClient
 
 ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.5.4"
+Version = "1.6.5"
 
+# Define Global Variables
+path = os.path.dirname(os.path.realpath(__file__))
+client = TwitchPubSub()
 ReadMeFile = os.path.join(os.path.dirname(__file__), "readme.txt")
 settings = {}
-
 threads = []
 
 def OpenReadMe():
@@ -72,15 +87,6 @@ def Cunt():
 
 def SnyderCut():
   # Parent.Log("Snyder", "Starting")
-  # Because this one changes scenes, we need some safety to ensure the viewers cant move us off a start or BRB scene
-  # We do this in two ways, disable the command in the first 5 minutes of the stream
-  # TODO
-
-  # Allow a cooldown to be set via another command
-  # Parent.Log("Snyder", str(Parent.IsOnCooldown("Custom", "snyder")))
-  if Parent.IsOnCooldown("Custom", "snyder"):
-    return
-
   Parent.SetOBSCurrentScene(settings["snyder-text"], CallbackLogger)
   time.sleep(4.9)
   Parent.SetOBSCurrentScene(settings["snyder-no-text"], CallbackLogger)
@@ -89,8 +95,33 @@ def SnyderCut():
   # Parent.Log("Snyder", "Complete")
   return
 
-
+# Initialize Data (Only called on load)
 def Init():
+  oauth = GetOAuth()
+  auth = 'OAuth ' + oauth.replace("oauth:", "")
+  
+  # headers = {'Authorization': auth}
+  # t = Parent.GetRequest("https://id.twitch.tv/oauth2/validate", headers)
+  
+  httpclient = HttpClient()
+  httpclient.DefaultRequestHeaders.Add("Authorization", auth)
+  t = httpclient.GetStringAsync("https://id.twitch.tv/oauth2/validate")
+  data = ""
+  try:
+    t.Wait()
+    data = t.Result
+
+  except:
+    Parent.Log("Custom-Main", 'Error with OAuth')
+    return
+  casterid = json.loads(data)['user_id']
+
+  # Register the client to listen to reward redeems
+  client.OnPubSubServiceConnected += OnPubSubConnected
+  client.OnRewardRedeemed += OnRewardRedeemed
+  client.ListenToRewards(casterid)
+  client.Connect()
+
   global settings
   work_dir = os.path.dirname(__file__)
   
@@ -101,70 +132,76 @@ def Init():
   except Exception, e:
     Parent.Log("UI", str(e))
     settings = {
-      "bonk-id": "",
+      "bonk-name": "",
       "bonk-square-scene": "",
       "bonk-wide-scene": "",
       "bonk-sound": "",
       "bonk-image": "",
       "bonk-cam": "",
-      "upside-id": "",
+      "upside-name": "",
       "upside-scene": "",
       "upside-cam": "",
       "upside-sound": "",
-      "cunt-id": "",
+      "cunt-name": "",
       "cunt-graphic": "",
       "cunt-cam": "",
-      "snyder-id": "",
+      "snyder-name": "",
       "snyder-text": "",
       "snyder-no-text": "",
       "snyder-raw-gameplay": "",
     }
-  return
 
 def Execute(data):
-  username=data.UserName
+  pass
+
+def Tick():
+  pass
+
+# Cleanup script when script is unloaded/reloaded
+def Unload():
+  global client
+  client.OnPubSubServiceConnected -= OnPubSubConnected
+  client.OnRewardRedeemed -= OnRewardRedeemed
+  client.Disconnect()
+  del client
+
+def GetOAuth():
+  vmloc = AnkhBotR2.Managers.GlobalManager.Instance.VMLocator
+  return vmloc.StreamerLogin.Token
+
+def OnPubSubConnected(s, e):
+  client.SendTopics()
+  
+# When a channelpoint rewards is redeemed
+def OnRewardRedeemed(s, e):
+  username=e.DisplayName
   time = str(datetime.now())
 
-  if settings["bonk-id"] in data.RawData:
+  if e.RewardTitle == settings["bonk-name"]:
     Parent.SendStreamMessage('Bonking Dan...')
     t = threading.Thread(target=Bonk)
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Bonk at " + time)
     return
-  if settings["upside-id"] in data.RawData:
+  if e.RewardTitle == settings["upside-name"]:
     Parent.SendStreamMessage('Dan be careful you\'re upside down!')
     t = threading.Thread(target=Upsidedown)
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Upsidedown at " + time)
     return
-  if settings["cunt-id"] in data.RawData:
+  if e.RewardTitle == settings["cunt-name"]:
     Parent.SendStreamMessage('Come on boys, don\'t be such a cunt!')
     t = threading.Thread(target=Cunt)
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Cunt at " + time)
     return
-  if settings["snyder-id"] in data.RawData:
+  if e.RewardTitle == settings["snyder-name"]:
     Parent.SendStreamMessage('Reducing aspect ratio to appease Zac\'s vision...')
     t = threading.Thread(target=SnyderCut)
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Snyder Cut at " + time)
     return
-  if "!snyderCooldown" in data.RawData:
-    cool = data.Message.split(" ")[1]
-    if not cool.isdigit():
-      return
-    cool = int(cool)
-    Parent.AddCooldown("Custom", "snyder", cool)
-    Parent.SendStreamMessage('Snyder Cut channel point reward on cooldown...')
-    Parent.Log("Custom-Main", username + " put snyder cut on cooldown for "+ str(cool) + " seconds at " + time)
-    return
-
-  
-  return
-
-def Tick():
-  return

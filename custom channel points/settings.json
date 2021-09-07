@@ -6,7 +6,7 @@
   "bonk-image": "BONK",
   "bonk-cam": "Bonk",
   "upside-id": "eabd6c20-8a5b-4ba2-9063-e1dc9e0c5200",
-  "upside-scene": "Webcam Upside Down",
+  "upside-scene": "Webcam",
   "upside-cam": "Webcam",
   "upside-sound": "flip soinds",
   "cunt-id": "464aa29e-7444-4561-a92e-f9ed0f05d790",
@@ -19,5 +19,17 @@
   "bonk-name": "BONK",
   "upside-name": "Upside Down",
   "cunt-name": "C*nt",
-  "snyder-name": "Snyder Cut Mode"
+  "snyder-name": "Snyder Cut Mode",
+  "applegate-name": "A quick shoutout to Christina Applegate",
+  "applegate-game": "Gaming",
+  "applegate-chatting": "Chatting",
+  "applegate-folder": "Applegate",
+  "bonk-source": "BONK",
+  "bonk-scene": "Webcam",
+  "upside-scource": "Upside",
+  "upside-source": "Upside",
+  "punch-name": "Punch Dan",
+  "punch-prefix": "Punch",
+  "punch-sound": "PunchSound",
+  "punch-scene": "Webcam"
 }

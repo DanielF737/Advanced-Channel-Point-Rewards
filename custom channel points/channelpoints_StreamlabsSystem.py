@@ -29,7 +29,7 @@ ScriptName = "custom channel points"
 Website = "https://www.slalty.com"
 Description = "Contains logic for custom channel point scripts"
 Creator = "DanielF737"
-Version = "1.6.5"
+Version = "1.8.9"
 
 # Define Global Variables
 path = os.path.dirname(os.path.realpath(__file__))
@@ -51,29 +51,17 @@ def CallbackLogger(response):
 
 def Bonk():
   # Parent.Log("Bonk", "Starting")
-  Parent.SetOBSSourceRender(settings["bonk-sound"], True, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-image"], True, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-cam"], True, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-sound"], True, settings["bonk-wide-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-image"], True, settings["bonk-wide-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-cam"], True, settings["bonk-wide-scene"], CallbackLogger)
-  time.sleep(2)
-  Parent.SetOBSSourceRender(settings["bonk-sound"], False, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-image"], False, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-cam"], False, settings["bonk-square-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-sound"], False, settings["bonk-wide-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-image"], False, settings["bonk-wide-scene"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["bonk-cam"], False, settings["bonk-wide-scene"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["bonk-source"], True, settings["bonk-scene"], CallbackLogger)
+  time.sleep(3)
+  Parent.SetOBSSourceRender(settings["bonk-source"], False, settings["bonk-scene"], CallbackLogger)
   # Parent.Log("Bonk", "Complete")
   return
-  
+
 def Upsidedown():
   # Parent.Log("Upsidedown", "Starting")
-  Parent.SetOBSSourceRender(settings["upside-scene"], True, settings["upside-cam"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["upside-sound"], True, settings["upside-cam"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["upside-source"], True, settings["upside-scene"], CallbackLogger)
   time.sleep(15)
-  Parent.SetOBSSourceRender(settings["upside-scene"], False, settings["upside-cam"], CallbackLogger)
-  Parent.SetOBSSourceRender(settings["upside-sound"], False, settings["upside-cam"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["upside-source"], False, settings["upside-scene"], CallbackLogger)
   # Parent.Log("Upsidedown", "Complete")
   return
 
@@ -94,6 +82,28 @@ def SnyderCut():
   Parent.SetOBSCurrentScene(settings["snyder-raw-gameplay"], CallbackLogger)
   # Parent.Log("Snyder", "Complete")
   return
+
+def Applegate():
+  # Parent.Log("Applegate", "Starting")
+  Parent.SetOBSSourceRender(settings["applegate-folder"], True, settings["applegate-game"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["applegate-folder"], True, settings["applegate-chatting"], CallbackLogger)
+  time.sleep(13)
+  Parent.SetOBSSourceRender(settings["applegate-folder"], False, settings["applegate-game"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["applegate-folder"], False, settings["applegate-chatting"], CallbackLogger)
+  # Parent.Log("Applegate", "Complete")
+  
+def Punch():
+  # Parent.Log("Punch", "Starting")
+  suf = time.gmtime()[5] % 10
+  source = "%s%s"%(settings["punch-prefix"], suf)
+  # Parent.Log("Punch", source)
+  Parent.SetOBSSourceRender(source, True, settings["punch-scene"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["punch-sound"], True, settings["punch-scene"], CallbackLogger)
+  time.sleep(1.5)
+  Parent.SetOBSSourceRender(source, False, settings["punch-scene"], CallbackLogger)
+  Parent.SetOBSSourceRender(settings["punch-sound"], False, settings["punch-scene"], CallbackLogger)
+  # Parent.Log("Punch", "Complete")
+
 
 # Initialize Data (Only called on load)
 def Init():
@@ -133,15 +143,11 @@ def Init():
     Parent.Log("UI", str(e))
     settings = {
       "bonk-name": "",
-      "bonk-square-scene": "",
-      "bonk-wide-scene": "",
-      "bonk-sound": "",
-      "bonk-image": "",
-      "bonk-cam": "",
+      "bonk-source": "",
+      "bonk-scene": "",
       "upside-name": "",
+      "upside-source": "",
       "upside-scene": "",
-      "upside-cam": "",
-      "upside-sound": "",
       "cunt-name": "",
       "cunt-graphic": "",
       "cunt-cam": "",
@@ -149,6 +155,14 @@ def Init():
       "snyder-text": "",
       "snyder-no-text": "",
       "snyder-raw-gameplay": "",
+      "applegate-name": "",
+      "applegate-game": "",
+      "applegate-chatting": "",
+      "applegate-folder": "",
+      "punch-name": "",
+      "punch-prefix": "",
+      "punch-sound": "",
+      "punch-scene": ""
     }
 
 def Execute(data):
@@ -204,4 +218,18 @@ def OnRewardRedeemed(s, e):
     threads.append(t)
     t.start()
     Parent.Log("Custom-Main", username + " Executed Snyder Cut at " + time)
+    return
+  if e.RewardTitle == settings["applegate-name"]:
+    Parent.SendStreamMessage('Lets give a quick shout-out to Christina Applegate')
+    t = threading.Thread(target=Applegate)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Applegate at " + time)
+    return
+  if e.RewardTitle == settings["punch-name"]:
+    Parent.SendStreamMessage('Beating the shit out of Dan...')
+    t = threading.Thread(target=Punch)
+    threads.append(t)
+    t.start()
+    Parent.Log("Custom-Main", username + " Executed Punch at " + time)
     return

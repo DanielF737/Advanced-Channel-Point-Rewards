@@ -12,80 +12,48 @@
 	
 	"bonk-name" : {
     "type": "textbox",
-    "value": "a37dd922-0075-4fd0-9527-79c2dc9384b8",
+    "value": "",
     "label": "Name of the Bonk Channel Point Event",
     "tooltip": "",
     "group": "Bonk"
 	},
 
-	"bonk-square-scene" : {
+	"bonk-source" : {
     "type": "textbox",
-    "value": "Rounded Webcam Square",
-    "label": "Name of the scene where the square bonk is located.",
+    "value": "",
+    "label": "Name of the bonk folder source.",
     "tooltip": "",
     "group": "Bonk"
 	},
 	
-	"bonk-wide-scene" : {
+	"bonk-scene" : {
     "type": "textbox",
-    "value": "Fullscreen Cam",
-    "label": "Name of the scene where the wide bonk is located.",
-    "tooltip": "",
-    "group": "Bonk"
-	},
-	
-	"bonk-sound" : {
-    "type": "textbox",
-    "value": "bonk",
-    "label": "Name of the image source for Bonk.",
-    "tooltip": "",
-    "group": "Bonk"
-	},
-	
-	"bonk-image" : {
-    "type": "textbox",
-    "value": "BONK",
-    "label": "Name of the media source for Bonk sound effect.",
-    "tooltip": "",
-    "group": "Bonk"
-	},
-	
-	"bonk-cam" : {
-    "type": "textbox",
-    "value": "Bonk",
-    "label": "Name of the camera source for Bonked webcam.",
+    "value": "",
+    "label": "Name of the webcam proxy scene where bonk is located.",
     "tooltip": "",
     "group": "Bonk"
 	},
 	
 	"upside-name" : {
     "type": "textbox",
-    "value": "eabd6c20-8a5b-4ba2-9063-e1dc9e0c5200",
+    "value": "",
     "label": "Name of the Upsidedown Channel Point Event",
     "tooltip": "",
     "group": "Upside Down"
 	},
 
-	"upside-scene" : {
+	"upside-source" : {
     "type": "textbox",
-    "value": "Webcam Upside Down",
-    "label": "Name of the upside down camera scene.",
+    "value": "",
+    "label": "Name of the upside down folder source.",
     "tooltip": "",
     "group": "Upside Down"
 	},
 	
-	"upside-cam" : {
+	"upside-scene" : {
     "type": "textbox",
     "value": "Webcam",
     "label": "Name of the base webcam scene",
-    "tooltip": "",
-    "group": "Upside Down"
-	},
-	
-	"upside-sound" : {
-    "type": "textbox",
-    "value": "flip soinds",
-    "label": "Name of the flip sound media source",
     "tooltip": "",
     "group": "Upside Down"
 	},
@@ -144,5 +112,69 @@
     "label": "Name of the base gameplay scene.",
     "tooltip": "",
     "group": "Snyder Cut"
+	},
+	
+	"applegate-name" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the Applegate Channel Point Event",
+    "tooltip": "",
+    "group": "Applegate"
+	},
+
+	"applegate-game" : {
+    "type": "textbox",
+    "value": "Webcam Upside Down",
+    "label": "Name of the gameplay scene.",
+    "tooltip": "",
+    "group": "Applegate"
+	},
+
+	"applegate-chatting" : {
+    "type": "textbox",
+    "value": "Webcam Upside Down",
+    "label": "Name of the chatting scene.",
+    "tooltip": "",
+    "group": "Applegate"
+	},
+
+	"applegate-folder" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the applegate folder source.",
+    "tooltip": "",
+    "group": "Applegate"
+	},
+	
+	"punch-name" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the Punch Channel Point Event",
+    "tooltip": "",
+    "group": "Punch"
+	},
+
+	"punch-prefix" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the punch source prefix.",
+    "tooltip": "",
+    "group": "Punch"
+	},
+
+	"punch-sound" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the punch sound media source.",
+    "tooltip": "",
+    "group": "Punch"
+	},
+
+	"punch-scene" : {
+    "type": "textbox",
+    "value": "",
+    "label": "Name of the punch base scene.",
+    "tooltip": "",
+    "group": "Punch"
 	}
 }
